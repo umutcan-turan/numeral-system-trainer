@@ -108,7 +108,7 @@ class NumeralSystemTrainerApp {
 			result = switch (rand.nextInt(3)) {
 			case 0 -> 2;
 			case 1 -> 10;
-			case 2 -> 6;
+			case 2 -> 16;
 			default -> 2;
 			};
 		} while (result == num);
