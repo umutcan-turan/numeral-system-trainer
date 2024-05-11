@@ -78,7 +78,7 @@ class NumeralSystemTrainerApp {
 	
 	public static void askQuestion(int source, int target, long number)
 	{
-		System.out.printf("(%d) sisteminde %s şeklinde gösterilen sayıyı (%d) sisteminde giriniz: ",
+		System.out.printf("'%d' sisteminde '%s' şeklinde gösterilen sayıyı '%d' sisteminde giriniz: ",
 				source, NumberUtil.decimalToBase(Long.toString(number), source), target);
 	}
 	
