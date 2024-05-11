@@ -13,7 +13,7 @@ class NumeralSystemTrainerApp {
 	{
 		Random rand = new Random();
 		java.util.Scanner kb = new java.util.Scanner(System.in);
-		long min = 0;
+		long min = 8;
 		long max = 15;
 		boolean running = true;
 
