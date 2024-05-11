@@ -102,13 +102,14 @@ class NumeralSystemTrainerApp {
 	
 	public static int generateBase(int num, Random rand)
 	{
-		int result = 2;
+		int result;
 		
 		do {
-			switch (rand.nextInt(3)) {
-			case 0 -> result = 2;
-			case 1 -> result = 10;
-			case 2 -> result = 16;
+			result = switch (rand.nextInt(3)) {
+			case 0 -> 2;
+			case 1 -> 10;
+			case 2 -> 6;
+			default -> 2;
 			}
 		} while (result == num);
 		return result;
