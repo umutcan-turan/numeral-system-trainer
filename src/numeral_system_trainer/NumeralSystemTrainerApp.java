@@ -110,7 +110,7 @@ class NumeralSystemTrainerApp {
 			case 1 -> 10;
 			case 2 -> 6;
 			default -> 2;
-			}
+			};
 		} while (result == num);
 		return result;
 	}
