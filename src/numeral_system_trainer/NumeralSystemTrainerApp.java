@@ -13,7 +13,7 @@ class NumeralSystemTrainerApp {
 	{
 		Random rand = new Random();
 		java.util.Scanner kb = new java.util.Scanner(System.in);
-		long min = 8;
+		long min = 0;
 		long max = 15;
 		boolean running = true;
 
@@ -49,8 +49,8 @@ class NumeralSystemTrainerApp {
 	
 	public static boolean doQuestion(long min, long max, Random rand, Scanner kb)
 	{
-		int source = generateBase(0, rand);
-		int target = generateBase(source, rand);
+		int source = rand.nextInt(2) == 0 ? 2 : 16;
+		int target = source == 2 ? 16 : 2;
 		long number = rand.nextLong(max - min + 1) + min;
 		
 		askQuestion(source, target, number);
@@ -98,21 +98,6 @@ class NumeralSystemTrainerApp {
 	public static void displayCorrectAnswer(long number, int target)
 	{
 		System.out.printf("Doğru cevap: %s%n", NumberUtil.decimalToBase(Long.toString(number), target));
-	}
-	
-	public static int generateBase(int num, Random rand)
-	{
-		int result;
-		
-		do {
-			result = switch (rand.nextInt(3)) {
-			case 0 -> 2;
-			case 1 -> 10;
-			case 2 -> 16;
-			default -> 2;
-			};
-		} while (result == num);
-		return result;
 	}
 }
 
