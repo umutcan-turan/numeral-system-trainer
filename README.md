@@ -24,6 +24,6 @@ Bu program ikilik ve onaltılık sistemde gösterilen sayıları birbirine çevi
    komutu ile programı çalıştırınız.
 
 Ayrıca Eclipse IDE'nin 'File(Dosya) > Import(İçe Aktar)' menüsünden git projesini Eclipse'de açabilirsiniz.
-Varolan çalışmalarınızı etkilememek için yeni bir Workspace oluşturup burada içe aktarmanız tavsiye edilir.
+Geçerli çalışmalarınızı etkilememek için yeni bir Workspace oluşturup burada içe aktarmanız tavsiye edilir.
 
 Düzeltme, iyileştirme ve yeni özellikler için Issue açabilirsiniz, Pull Request gönderebilirsiniz.
