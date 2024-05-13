@@ -20,7 +20,7 @@ class NumeralSystemTrainerApp {
 		do {
 			printMenu(min, max);
 			String s = kb.nextLine();
-			if (s.isEmpty())
+			if (!NumberUtil.isValidNumber(s, 10))
 				continue;
 			switch (Integer.parseInt(s)) {
 			case 1 -> min = readVal(kb);
@@ -38,7 +38,7 @@ class NumeralSystemTrainerApp {
 		System.out.printf("2) Gösterilecek maksimum sayı değerini giriniz (Geçerli değer: %d)%n", max);
 		System.out.println("3) Başla");
 		System.out.println("4) Çıkış");
-		System.out.println("-1 Girerek menüye geri dönebilirsiniz.");
+		System.out.println("'q' Girerek menüye geri dönebilirsiniz.");
 	}
 	
 	public static long readVal(Scanner kb)
@@ -55,18 +55,18 @@ class NumeralSystemTrainerApp {
 		
 		askQuestion(source, target, number);
 		String answer = kb.nextLine();
-		if (answer.isEmpty() || Long.parseLong(answer, target) == -1)
-			return false;
-		if (NumberUtil.isValidNumber(answer, target)) {
-			answer = NumberUtil.baseToDecimal(answer, target);
-			boolean isCorrect = Long.parseLong(answer) == number;
-			displayResult(isCorrect);
-			if (!isCorrect)
-				displayCorrectAnswer(number, target);
-		} else {
+		if (!NumberUtil.isValidNumber(answer, target)) {
+			if ("q".equalsIgnoreCase(answer))
+				return false;
 			displayError();
 			displayCorrectAnswer(number, target);
+			return true;
 		}
+		answer = NumberUtil.baseToDecimal(answer, target);
+		boolean isCorrect = Long.parseLong(answer) == number;
+		displayResult(isCorrect);
+		if (!isCorrect)
+			displayCorrectAnswer(number, target);
 		return true;
 	}
 	
