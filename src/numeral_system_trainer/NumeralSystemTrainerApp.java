@@ -1,8 +1,5 @@
 package numeral_system_trainer;
 
-import java.util.Random;
-import java.util.Scanner;
-
 class NumeralSystemTrainerApp {
 	public static void main(String [] args)
 	{
@@ -11,24 +8,64 @@ class NumeralSystemTrainerApp {
 	
 	public static void run()
 	{
-		Random rand = new Random();
+		java.util.Random rand = new java.util.Random();
 		java.util.Scanner kb = new java.util.Scanner(System.in);
 		long min = 0;
 		long max = 15;
 		boolean running = true;
 
 		do {
-			printMenu(min, max);
-			String s = kb.nextLine();
-			if (!NumberUtil.isValidNumber(s, 10))
-				continue;
-			switch (Integer.parseInt(s)) {
-			case 1 -> min = readVal(kb);
-			case 2 -> max = readVal(kb);
-			case 3 -> doQuestionLoop(min, max, rand, kb);
-			case 4 -> running = false;
+			IOUtil.printMenu(min, max);
+			switch ((int)readLong(kb, 10)) {
+				case 1 -> min = readLong(kb, 10);
+				case 2 -> max = readLong(kb, 10);
+				case 3 -> { while (doQuestion(min, max, rand, kb)) System.out.println(); }
+				case 0 -> running = false;
 			}	
 		} while (running);
+	}
+
+	
+	public static long readLong(java.util.Scanner kb, int base)
+	{
+		while (true) {
+			System.out.print("Değer giriniz: ");
+			String str = kb.nextLine();
+			if (StringUtil.isValidNumber(str, base))
+				return Long.parseLong(str, base);
+			IOUtil.displayError(str);
+		}
+		// Unreachable
+	}
+	
+	public static boolean doQuestion(long min, long max, java.util.Random rand, java.util.Scanner kb)
+	{
+		int source = rand.nextInt(2) == 0 ? 2 : 16;
+		int target = source == 2 ? 16 : 2;
+		long number = rand.nextLong(max - min + 1) + min;
+		
+		IOUtil.askQuestion(source, target, number);
+		long answer = readLong(kb, target);
+		if (answer == -1)
+			return false;
+		boolean isCorrect = answer == number;
+		IOUtil.displayResult(isCorrect);
+		if (!isCorrect)
+			IOUtil.displayCorrectAnswer(number, target);
+		return true;
+	}
+}
+
+class IOUtil {
+	public static long readLong(java.util.Scanner kb, int base)
+	{
+		while (true) {
+			System.out.print("Değer giriniz: ");
+			String str = kb.nextLine();
+			if (StringUtil.isValidNumber(str, base))
+				return Long.parseLong(str, base);
+			displayError(str);
+		}
 	}
 	
 	public static void printMenu(long min, long max)
@@ -37,53 +74,19 @@ class NumeralSystemTrainerApp {
 		System.out.printf("1) Gösterilecek minimum sayı değerini giriniz (Geçerli değer: %d)%n", min);
 		System.out.printf("2) Gösterilecek maksimum sayı değerini giriniz (Geçerli değer: %d)%n", max);
 		System.out.println("3) Başla");
-		System.out.println("4) Çıkış");
-		System.out.println("'q' Girerek menüye geri dönebilirsiniz.");
-	}
-	
-	public static long readVal(Scanner kb)
-	{
-		System.out.print("Değer giriniz: ");
-		return Long.parseLong(kb.nextLine());
-	}
-	
-	public static boolean doQuestion(long min, long max, Random rand, Scanner kb)
-	{
-		int source = rand.nextInt(2) == 0 ? 2 : 16;
-		int target = source == 2 ? 16 : 2;
-		long number = rand.nextLong(max - min + 1) + min;
-		
-		askQuestion(source, target, number);
-		String answer = kb.nextLine();
-		if (!StringUtil.isValidNumber(answer, target)) {
-			if ("q".equalsIgnoreCase(answer))
-				return false;
-			displayError();
-			displayCorrectAnswer(number, target);
-			return true;
-		}
-		boolean isCorrect = Long.parseLong(answer, target) == number;
-		displayResult(isCorrect);
-		if (!isCorrect)
-			displayCorrectAnswer(number, target);
-		return true;
-	}
-	
-	public static void doQuestionLoop(long min, long max, Random rand, Scanner kb)
-	{
-		while (doQuestion(min, max, rand, kb))
-			System.out.println();
+		System.out.println("0) Çıkış");
+		System.out.println("'-1' Girerek menüye geri dönebilirsiniz.");
 	}
 	
 	public static void askQuestion(int source, int target, long number)
 	{
-		System.out.printf("'%d' sisteminde '%s' şeklinde gösterilen sayıyı '%d' sisteminde giriniz: ",
+		System.out.printf("'%d' sisteminde '%s' şeklinde gösterilen sayıyı '%d' sisteminde nasıl gösterilir?%n",
 				source, Long.toString(number, source), target);
 	}
 	
-	public static void displayError()
+	public static void displayError(String str)
 	{
-		System.out.println("Sayı sistemine ait olmayan bir karakter girdiniz!");
+		System.out.printf("Geçersiz değer girdiniz: '%s'%n", str);
 	}
 	
 	public static void displayResult(boolean isCorrect)
