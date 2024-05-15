@@ -62,8 +62,7 @@ class NumeralSystemTrainerApp {
 			displayCorrectAnswer(number, target);
 			return true;
 		}
-		answer = NumberUtil.baseToDecimal(answer, target);
-		boolean isCorrect = Long.parseLong(answer) == number;
+		boolean isCorrect = Long.parseLong(answer, target) == number;
 		displayResult(isCorrect);
 		if (!isCorrect)
 			displayCorrectAnswer(number, target);
@@ -79,7 +78,7 @@ class NumeralSystemTrainerApp {
 	public static void askQuestion(int source, int target, long number)
 	{
 		System.out.printf("'%d' sisteminde '%s' şeklinde gösterilen sayıyı '%d' sisteminde giriniz: ",
-				source, NumberUtil.decimalToBase(Long.toString(number), source), target);
+				source, Long.toString(number, source), target);
 	}
 	
 	public static void displayError()
@@ -97,7 +96,7 @@ class NumeralSystemTrainerApp {
 	
 	public static void displayCorrectAnswer(long number, int target)
 	{
-		System.out.printf("Doğru cevap: %s%n", NumberUtil.decimalToBase(Long.toString(number), target));
+		System.out.printf("Doğru cevap: %s%n", Long.toString(number, target));
 	}
 }
 
@@ -110,16 +109,6 @@ class NumberUtil {
 			if (Character.digit(str.charAt(i), base) == -1)
 				return false;
 		return true;
-	}
-	
-	public static String baseToDecimal(String str, int base)
-	{
-		return Long.toString(Long.parseLong(str, base), 10);
-	}
-	
-	public static String decimalToBase(String str, int base)
-	{
-		return Long.toString(Long.parseLong(str, 10), base);
 	}
 }
 
