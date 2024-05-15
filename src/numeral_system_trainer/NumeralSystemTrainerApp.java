@@ -16,28 +16,15 @@ class NumeralSystemTrainerApp {
 
 		do {
 			IOUtil.printMenu(min, max);
-			switch ((int)readLong(kb, 10)) {
-				case 1 -> min = readLong(kb, 10);
-				case 2 -> max = readLong(kb, 10);
+			switch ((int)IOUtil.readLong(kb, 10)) {
+				case 1 -> min = IOUtil.readLong(kb, 10);
+				case 2 -> max = IOUtil.readLong(kb, 10);
 				case 3 -> { while (doQuestion(min, max, rand, kb)) System.out.println(); }
 				case 0 -> running = false;
 			}	
 		} while (running);
 	}
 
-	
-	public static long readLong(java.util.Scanner kb, int base)
-	{
-		while (true) {
-			System.out.print("Değer giriniz: ");
-			String str = kb.nextLine();
-			if (StringUtil.isValidNumber(str, base))
-				return Long.parseLong(str, base);
-			IOUtil.displayError(str);
-		}
-		// Unreachable
-	}
-	
 	public static boolean doQuestion(long min, long max, java.util.Random rand, java.util.Scanner kb)
 	{
 		int source = rand.nextInt(2) == 0 ? 2 : 16;
@@ -45,7 +32,7 @@ class NumeralSystemTrainerApp {
 		long number = rand.nextLong(max - min + 1) + min;
 		
 		IOUtil.askQuestion(source, target, number);
-		long answer = readLong(kb, target);
+		long answer = IOUtil.readLong(kb, target);
 		if (answer == -1)
 			return false;
 		boolean isCorrect = answer == number;
