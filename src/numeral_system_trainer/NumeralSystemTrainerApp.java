@@ -88,10 +88,7 @@ class NumeralSystemTrainerApp {
 	
 	public static void displayResult(boolean isCorrect)
 	{
-		if (isCorrect)
-			System.out.println("Tebrikler! Doğru cevap!");
-		else
-			System.out.println("Bir daha ki sefere..!");
+		System.out.printf("%s%n", isCorrect ? "Tebrikler! Doğru cevap!" : "Bir dahaki sefere..!");
 	}
 	
 	public static void displayCorrectAnswer(long number, int target)
