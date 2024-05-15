@@ -55,7 +55,7 @@ class NumeralSystemTrainerApp {
 		
 		askQuestion(source, target, number);
 		String answer = kb.nextLine();
-		if (!NumberUtil.isValidNumber(answer, target)) {
+		if (!StringUtil.isValidNumber(answer, target)) {
 			if ("q".equalsIgnoreCase(answer))
 				return false;
 			displayError();
@@ -97,12 +97,16 @@ class NumeralSystemTrainerApp {
 	}
 }
 
-class NumberUtil {
+class StringUtil {
 	public static boolean isValidNumber(String str, int base)
 	{
+		int i = 0;
+		
 		if (str.isEmpty())
 			return false;
-		for (int i = 0; i < str.length(); i++)
+		if (str.length() > 1 && (str.charAt(i) == '-' || str.charAt(i) == '+'))
+			i++;
+		for (; i < str.length(); i++)
 			if (Character.digit(str.charAt(i), base) == -1)
 				return false;
 		return true;
